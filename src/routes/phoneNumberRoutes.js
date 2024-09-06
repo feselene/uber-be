@@ -1,5 +1,6 @@
 const express = require('express');
 const { addPhoneNumber, getPhoneNumbers } = require('../controllers/phoneNumberController');
+const phoneNumberController = require('../controllers/phoneNumberController'); // Ensure correct import
 const router = express.Router();
 
 // Route to add a phone number

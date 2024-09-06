@@ -1,16 +1,27 @@
-// models/PhoneNumber.js
-const mongoose = require('mongoose');
+const PhoneNumber = require('../models/PhoneNumber'); // Import the PhoneNumber model
 
-// Define schema for storing phone numbers
-const PhoneNumberSchema = new mongoose.Schema({
-  phoneNumber: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-});
+// Add a new phone number
+exports.addPhoneNumber = async (req, res) => {
+  try {
+    const { phoneNumber } = req.body; // Extract phoneNumber from request body
 
-module.exports = mongoose.model('PhoneNumber', PhoneNumberSchema);
+    if (!phoneNumber) {
+      return res.status(400).json({ msg: 'Phone number is required' });
+    }
+
+    // Create a new phone number document
+    const newPhoneNumber = new PhoneNumber({
+      phoneNumber,
+      date: new Date(), // Set the current date
+    });
+
+    // Save the phone number to the database
+    await newPhoneNumber.save();
+
+    // Send response
+    res.status(201).json({ msg: 'Phone number added successfully', data: newPhoneNumber });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+};
