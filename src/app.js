@@ -23,6 +23,7 @@ app.use(express.json({ extended: false }));
 // Define Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/profile', require('./routes/profileRoutes'));
+app.use('/api/phone', require('./routes/phoneNumberRoutes'));
 
 // Connect to MongoDB using the MONGO_URI from .env
 mongoose.connect(process.env.MONGO_URI, {
