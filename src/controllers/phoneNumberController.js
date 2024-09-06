@@ -6,14 +6,17 @@ const addPhoneNumber = async (req, res) => {
 
   // Validation: ensure phoneNumber is provided
   if (!phoneNumber) {
+    console.error('Phone number is missing in request');
     return res.status(400).json({ msg: 'Phone number is required' });
   }
 
   try {
     const newPhoneNumber = new PhoneNumber({ phoneNumber, date });
     await newPhoneNumber.save();
+    console.log('Phone number saved:', newPhoneNumber);
     res.status(201).json({ msg: 'Phone number added successfully', newPhoneNumber });
   } catch (error) {
+    console.error('Error saving phone number:', error.message);
     res.status(500).json({ error: 'Failed to save phone number' });
   }
 };
