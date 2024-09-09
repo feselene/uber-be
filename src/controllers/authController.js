@@ -60,6 +60,15 @@ exports.signin = async (req, res) => {
     );
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({message: 'Error when logging in'});
   }
 };
+
+exports.logout = async (req, res) => {
+  try {
+    res.status(200).json({message: 'Logged out successfully'});
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({message: 'Error logging out'});
+  }
+}
